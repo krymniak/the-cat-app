@@ -3,16 +3,23 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CatsSearchComponent } from './cats-search/cats-search.component';
+import { HttpClientModule } from '@angular/common/http';
+import { CatsSearchService } from './shared/cats-search.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CatsSearchComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+		HttpClientModule
   ],
-  providers: [],
+  providers: [CatsSearchService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
