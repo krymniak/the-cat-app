@@ -10,7 +10,7 @@ export class CatsSearchService {
 
 	constructor(private http: HttpClient) { }
 
-	getImages(limit: number =10, breedIds: string): Observable<CatObj[]> {
+	getImages(limit: number, breedIds: string): Observable<CatObj[]> {
 		return this.http.get(`${environment.url}?limit=${limit}&api_key=${environment.apiKey}&breed_ids=${breedIds}`)
 			.pipe(
 				map((response: { [key: string]: any }) => {

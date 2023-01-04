@@ -1,28 +1,22 @@
 <div class="main">
-	<mat-form-field appearance="fill">
-		<mat-label>Breeds</mat-label>
-		<mat-select [formControl]="breedsIdss" multiple>
-			<mat-select-trigger>
-				{{breedsIdss.value?.[0] || 'All breeds'}}
-				<span *ngIf="(breedsIdss.value?.length || 0) > 1" class="example-additional-selection">
-					(+{{(breedsIdss.value?.length || 0) - 1}} {{breedsIdss.value?.length === 2 ? 'other' : 'others'}})
-				</span>
-			</mat-select-trigger>
-			<mat-option *ngFor="let breeds of breedsIds" [value]="breeds.breedsId">{{breeds.name}}</mat-option>
-		</mat-select>
-	</mat-form-field>
-	
-	<mat-form-field appearance="fill">
-		<mat-label>Select limit</mat-label>
-		<mat-select [formControl]="limit" disableRipple>
-			<mat-option value=5>5</mat-option>
-			<mat-option value=10>10</mat-option>
-			<mat-option value=25>25</mat-option>
-		</mat-select>
-	</mat-form-field>
-	
-	<button class="btn" mat-flat-button color="primary"(click)="searchCats()">SEARCH</button>
-	<button mat-flat-button color="primary"(click)="getBreeds()">get breeds</button>
+	<form [formGroup]="form" (ngSubmit)="searchCats()">
+		<mat-form-field appearance="fill">
+			<mat-label>Select breeds</mat-label>
+			<mat-select formControlName="breedsControl" multiple>
+				<mat-option [value]="allBreeds">All breeds</mat-option>
+				<mat-option *ngFor="let breeds of breedsIds" [value]="breeds.breedsId">{{breeds.name}}</mat-option>
+			</mat-select>
+		</mat-form-field>
+		
+		<mat-form-field appearance="fill">
+			<mat-label>Select limit</mat-label>
+			<mat-select formControlName="limit" >
+				<mat-option *ngFor="let limit of limitValues" [value]="limit">{{limit}}</mat-option>
+			</mat-select>
+		</mat-form-field>
+		
+		<button class="btn" mat-flat-button color="primary"(click)="searchCats()" [disabled]="form.invalid">SEARCH</button>
+	</form>
 </div>
 
 
