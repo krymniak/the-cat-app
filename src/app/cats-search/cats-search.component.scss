@@ -1,0 +1,35 @@
+
+.main {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.image-container{
+  width: 300px;
+  min-height: 100px;
+  max-width: 300px;
+  margin: 8px;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+  overflow: hidden;
+	flex: 0 1 50%;
+}
+
+.card{
+	display:flex;
+	flex-wrap:wrap;
+	justify-content: space-between;
+}
+
+.mat-mdc-card-content {
+	display: block;
+	padding: 10px 16px;
+	font-family: 'Montserrat';
+}
+.mat-mdc-card-header {
+	display: flex;
+	justify-content: center;
+	margin: 5px 0px;
+}

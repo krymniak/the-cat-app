@@ -1,5 +1,44 @@
-<p>cats-search works!</p>
-<button (click)="searchCats()">button</button>
-<div *ngFor="let image of images">
-	<img src="{{image.url}}" >
+<div class="main">
+	<mat-form-field appearance="fill">
+		<mat-label>Breeds</mat-label>
+		<mat-select [formControl]="breedsIdss" multiple>
+			<mat-select-trigger>
+				{{breedsIdss.value?.[0] || 'All breeds'}}
+				<span *ngIf="(breedsIdss.value?.length || 0) > 1" class="example-additional-selection">
+					(+{{(breedsIdss.value?.length || 0) - 1}} {{breedsIdss.value?.length === 2 ? 'other' : 'others'}})
+				</span>
+			</mat-select-trigger>
+			<mat-option *ngFor="let breeds of breedsIds" [value]="breeds.breedsId">{{breeds.name}}</mat-option>
+		</mat-select>
+	</mat-form-field>
+	
+	<mat-form-field appearance="fill">
+		<mat-label>Select limit</mat-label>
+		<mat-select [formControl]="limit" disableRipple>
+			<mat-option value=5>5</mat-option>
+			<mat-option value=10>10</mat-option>
+			<mat-option value=25>25</mat-option>
+		</mat-select>
+	</mat-form-field>
+	
+	<button class="btn" mat-flat-button color="primary"(click)="searchCats()">SEARCH</button>
+	<button mat-flat-button color="primary"(click)="getBreeds()">get breeds</button>
 </div>
+
+
+	<div class="card">
+			<div *ngFor="let image of images" class=image-container>
+				<div *ngFor="let breed of image.breeds">
+					<mat-card>
+							<mat-card-header>
+								<mat-card-title>{{breed.name}}</mat-card-title>
+							</mat-card-header>
+							<img mat-card-image src="{{image.url}}">
+							<mat-card-content>
+								<p>{{ breed.description }}</p>
+							</mat-card-content>
+					</mat-card>
+					<br><br>
+				</div>
+			</div>
+	</div>
