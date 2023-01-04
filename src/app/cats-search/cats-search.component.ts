@@ -1,8 +1,8 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CatsSearchService } from '../shared/cats-search.service';
 import { CatObj } from '../shared/interface';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject, map, Observable, Subscription, switchMap, tap } from 'rxjs';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { BehaviorSubject, map, Observable, Subscription } from 'rxjs';
 
 
 @Component({
@@ -14,8 +14,6 @@ export class CatsSearchComponent implements OnInit {
 
 	breeds$!: Observable<CatObj[]>
 	form!: FormGroup
-	// breedsControl = new FormControl
-	// limit = new FormControl(10)
 
 	images!: CatObj[]
 	breedsIds!: any[]
@@ -27,12 +25,10 @@ export class CatsSearchComponent implements OnInit {
 		10,
 		20
 	]
-	
 
 
 
-	private _params$ = new BehaviorSubject<null>(null)
-	private _subscription = new Subscription()
+
 
 	get paramsArray(): FormArray {
 		return this.form.get('params') as FormArray
@@ -42,7 +38,6 @@ export class CatsSearchComponent implements OnInit {
 
 	constructor(
 		private catsService: CatsSearchService,
-		private formBuilder: FormBuilder
 	) {
 
 	}

@@ -1,3 +1,4 @@
+<mat-card-title class="main-title">Search cats images using filters</mat-card-title>
 <div class="main">
 	<form [formGroup]="form" (ngSubmit)="searchCats()">
 		<mat-form-field appearance="fill">
@@ -21,18 +22,5 @@
 
 
 	<div class="card">
-			<div *ngFor="let image of images" class=image-container>
-				<div *ngFor="let breed of image.breeds">
-					<mat-card>
-							<mat-card-header>
-								<mat-card-title>{{breed.name}}</mat-card-title>
-							</mat-card-header>
-							<img mat-card-image src="{{image.url}}">
-							<mat-card-content>
-								<p>{{ breed.description }}</p>
-							</mat-card-content>
-					</mat-card>
-					<br><br>
-				</div>
-			</div>
+			<app-cat-card *ngFor="let image of images" [image]="image"></app-cat-card>
 	</div>

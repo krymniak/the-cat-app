@@ -14,11 +14,13 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
+import { CatCardComponent } from './cat-card/cat-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CatsSearchComponent
+    CatsSearchComponent,
+		CatCardComponent
   ],
   imports: [
     BrowserModule,
