@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CatsSearchService } from '../shared/cats-search.service';
 import { CatObj } from '../shared/interface';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, map, Observable, Subscription } from 'rxjs';
 
 
@@ -12,12 +12,14 @@ import { BehaviorSubject, map, Observable, Subscription } from 'rxjs';
 })
 export class CatsSearchComponent implements OnInit {
 
-	breeds$!: Observable<CatObj[]>
+	breedsIds$!: Observable<any[]>
+	images$!: Observable<CatObj[]>
+	allBreeds$!: Observable<string[]>
 	form!: FormGroup
 
-	images!: CatObj[]
-	breedsIds!: any[]
-	allBreeds!: string[]
+	// images!: CatObj[]
+	// breedsIds!: any[]
+	// allBreeds!: string[]
 
 	limitValues = [
 		1,
@@ -25,16 +27,6 @@ export class CatsSearchComponent implements OnInit {
 		10,
 		20
 	]
-
-
-
-
-
-	get paramsArray(): FormArray {
-		return this.form.get('params') as FormArray
-	}
-
-
 
 	constructor(
 		private catsService: CatsSearchService,
@@ -47,7 +39,7 @@ export class CatsSearchComponent implements OnInit {
 			limit: new FormControl(10, Validators.required),
 			breedsControl: new FormControl(['abys'], Validators.required)
 		})
-		this.catsService.getBreeds()
+		this.breedsIds$ = this.catsService.getBreeds()
 			.pipe(
 				map((data: any) =>
 					data.map((res: any) => {
@@ -58,23 +50,28 @@ export class CatsSearchComponent implements OnInit {
 					})
 				)
 			)
-			.subscribe(breedsId => {
-				this.breedsIds = breedsId
-				this.allBreeds = breedsId.map((data: any) => {
-					return data.breedsId
-				})
-			})
 
+
+			this.allBreeds$ = this.catsService.getBreeds()
+			.pipe(
+				map((data: any) =>
+					data.map((res: any) => {
+						return {
+							breedsId: res.id,
+							name: res.name
+						}
+					}).map((dataId: any) => {
+					return dataId.breedsId
+				})
+				)
+			)
 
 	}
 
 
 	searchCats() {
-		this.catsService.getImages(this.form.value.limit, this.form.value.breedsControl).subscribe(
-			data => {
-				this.images = data
-			}
-		)
+		this.images$ = this.catsService.getImages(this.form.value.limit, this.form.value.breedsControl)
+		
 	}
 
 

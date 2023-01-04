@@ -4,8 +4,8 @@
 		<mat-form-field appearance="fill">
 			<mat-label>Select breeds</mat-label>
 			<mat-select formControlName="breedsControl" multiple>
-				<mat-option [value]="allBreeds">All breeds</mat-option>
-				<mat-option *ngFor="let breeds of breedsIds" [value]="breeds.breedsId">{{breeds.name}}</mat-option>
+				<mat-option [value]="allBreeds$ | async">All breeds</mat-option>
+				<mat-option *ngFor="let breeds of breedsIds$ | async" [value]="breeds.breedsId">{{breeds.name}}</mat-option>
 			</mat-select>
 		</mat-form-field>
 		
@@ -22,5 +22,5 @@
 
 
 	<div class="card">
-			<app-cat-card *ngFor="let image of images" [image]="image"></app-cat-card>
+			<app-cat-card *ngFor="let image of images$ | async" [image]="image"></app-cat-card>
 	</div>
