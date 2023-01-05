@@ -1,5 +1,10 @@
 export interface CatObj {
 	id: string,
 	url: string,
-	breeds: any
+	breeds: Breeds
+}
+
+export interface Breeds {
+	id: string,
+	name: string
 }

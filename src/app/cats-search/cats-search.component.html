@@ -5,7 +5,7 @@
 			<mat-label>Select breeds</mat-label>
 			<mat-select formControlName="breedsControl" multiple>
 				<mat-option [value]="allBreeds$ | async">All breeds</mat-option>
-				<mat-option *ngFor="let breeds of breedsIds$ | async" [value]="breeds.breedsId">{{breeds.name}}</mat-option>
+				<mat-option *ngFor="let breeds of breedsIds$ | async" [value]="breeds.id">{{breeds.name}}</mat-option>
 			</mat-select>
 		</mat-form-field>
 		
