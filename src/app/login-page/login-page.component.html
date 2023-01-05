@@ -1,0 +1,37 @@
+<mat-card style="border: none;">
+	<mat-card-title>
+		<h2>LOGIN PAGE</h2>
+	</mat-card-title>
+
+	<div class="alert alert-danger" *ngIf="auth.error$ | async as error">
+		{{error}}
+	</div>
+
+	<div class="alert alert-info" *ngIf="message">
+		{{ message }}
+	</div>
+
+	<form action="" [formGroup]="loginForm" (ngSubmit)="submit()">
+		<div class="input-field">
+			<mat-form-field appearance="outline">
+				<mat-label>Email</mat-label>
+				<input formControlName="email" matInput required />
+				<mat-error *ngIf="loginForm.get('email')?.errors?.['required']">
+					Required email address
+				</mat-error>
+			</mat-form-field>
+			<mat-form-field appearance="outline">
+				<mat-label>Password</mat-label>
+				<input formControlName="password" matInput [type]="hide ? 'password' : 'text'" required />
+				<button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+					[attr.aria-pressed]="hide">
+					<mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+				</button>
+				<mat-error *ngIf="loginForm.get('password')?.errors?.['required']">
+					Required password
+				</mat-error>
+			</mat-form-field>
+		</div>
+		<button class="login-btn" mat-flat-button color="primary" type="submit" [disabled]="loginForm.invalid || submitted">Login</button>
+	</form>
+</mat-card>

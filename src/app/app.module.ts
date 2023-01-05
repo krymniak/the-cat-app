@@ -4,36 +4,22 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CatsSearchComponent } from './cats-search/cats-search.component';
 import { HttpClientModule } from '@angular/common/http';
-import { CatsSearchService } from './shared/cats-search.service';
-import { ReactiveFormsModule } from '@angular/forms';
-import {MatSelectModule} from '@angular/material/select';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { CatsSearchService } from './shared/services/cats-search.service';
+import { SharedModule } from './shared/shared.module';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import {MatIconModule} from '@angular/material/icon';
-import {MatCardModule} from '@angular/material/card';
-import {MatButtonModule} from '@angular/material/button';
-import { CatCardComponent } from './cat-card/cat-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CatsSearchComponent,
-		CatCardComponent
   ],
   imports: [
     BrowserModule,
+		SharedModule,
     AppRoutingModule,
     BrowserAnimationsModule,
 		HttpClientModule,
-		ReactiveFormsModule,
-		MatSelectModule,
-		MatFormFieldModule,
-		MatToolbarModule,
-		MatIconModule,
-		MatCardModule,
-		MatButtonModule
+		MatToolbarModule
   ],
   providers: [CatsSearchService],
   bootstrap: [AppComponent]

@@ -1,11 +1,12 @@
 <mat-toolbar color="primary">
-  <mat-toolbar-row>
     <span>The Cat App</span>
 		<span class="material-symbols-outlined">
 			pets
 			</span>
-  </mat-toolbar-row>
+			<span class="spacer"></span>
+			<a mat-flat-button color="warn" (click)="logout()" *ngIf="auth.isAuthenticated()">Log out</a>
 </mat-toolbar>
+
 <div class="container">
-	<app-cats-search></app-cats-search>
+	<router-outlet></router-outlet>
 </div>

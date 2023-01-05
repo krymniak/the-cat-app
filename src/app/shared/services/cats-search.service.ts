@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { Observable, map } from "rxjs";
-import { Breeds, CatObj } from "./interface";
+import { Breeds, CatObj } from "src/app/shared/interface";
 
 @Injectable()
 

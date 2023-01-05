@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CatsSearchService } from '../shared/cats-search.service';
+import { CatsSearchService } from '../shared/services/cats-search.service';
 import { Breeds, CatObj } from '../shared/interface';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject, map, Observable, Subscription } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 
 @Component({

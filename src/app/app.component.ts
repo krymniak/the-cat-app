@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from './shared/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,16 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'the-cat-app';
+
+	constructor(
+		public auth: AuthService,
+		private _router: Router) {
+
+	}
+
+	logout() {
+    event?.preventDefault()
+    this.auth.logout()
+    this._router.navigate(['/login'])
+  }
 }
