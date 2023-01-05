@@ -20,13 +20,13 @@ export class LoginPageComponent implements OnInit {
 	constructor(
 
 		public auth: AuthService,
-		private router: Router,
-		private route: ActivatedRoute
+		private _router: Router,
+		private _route: ActivatedRoute
 	) { }
 
 	ngOnInit(): void {
 
-		this.route.queryParams.subscribe((params: Params) => {
+		this._route.queryParams.subscribe((params: Params) => {
 			if (params['loginAgain']) {
 				this.message = 'Please, login again!'
 			} else if (params['authFailed']) {
@@ -62,7 +62,7 @@ export class LoginPageComponent implements OnInit {
 
 		this.auth.login(user).subscribe(() => {
 			this.loginForm.reset()
-			this.router.navigate(['/home'])
+			this._router.navigate(['/home'])
 			this.submitted = false
 		}, () => {
 			this.submitted = false

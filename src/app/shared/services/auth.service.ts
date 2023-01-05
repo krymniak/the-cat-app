@@ -9,7 +9,7 @@ export class AuthService {
 
 	public error$: Subject<string> = new Subject<string>()
 
-	constructor(private http: HttpClient) { }
+	constructor(private _http: HttpClient) { }
 
 	get token(): string {
 		const expDate = new Date(localStorage.getItem('fb-token-exp')!)
@@ -22,7 +22,7 @@ export class AuthService {
 
 	login(user: User): Observable<FbAuthResponse | null> {
 		user.returnSecureToken = true
-		return this.http.post<FbAuthResponse | null>(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apiKeyFb}`, user)
+		return this._http.post<FbAuthResponse | null>(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apiKeyFb}`, user)
 			.pipe(
 				tap(this.setToken),
 				catchError(this.handleError.bind(this))

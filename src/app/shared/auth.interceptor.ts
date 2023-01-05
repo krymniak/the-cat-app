@@ -8,15 +8,15 @@ import { AuthService } from "./services/auth.service";
 export class AuthInterceptor implements HttpInterceptor {
 
 	constructor(
-		private auth: AuthService,
-		private router: Router
+		private _auth: AuthService,
+		private _router: Router
 	) { }
 
 	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-		if (this.auth.isAuthenticated()) {
+		if (this._auth.isAuthenticated()) {
 			req = req.clone({
 				setParams: {
-					auth: this.auth.token
+					auth: this._auth.token
 				}
 			})
 		}
@@ -24,8 +24,8 @@ export class AuthInterceptor implements HttpInterceptor {
 			.pipe(
 				catchError((error: HttpErrorResponse) => {
 					if (error.status === 401) {
-						this.auth.logout()
-						this.router.navigate(['/login'], {
+						this._auth.logout()
+						this._router.navigate(['/login'], {
 							queryParams: {
 								authFailed: true
 							}
