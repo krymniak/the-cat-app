@@ -8,6 +8,10 @@ import { CatsSearchComponent } from './cats-search.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../shared/services/auth.guard';
 import { CatCardModule } from '../cat-card/cat-card.module';
+import { StoreModule } from '@ngrx/store';
+import { reducerImages } from './store/reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { ImagesEffects } from './store/effects';
 
 const routes: Routes = [
   {
@@ -23,6 +27,8 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
+		StoreModule.forFeature('images', reducerImages),
+		EffectsModule.forFeature([ImagesEffects]),
 		CatCardModule,
 		FormsModule,
 		ReactiveFormsModule,

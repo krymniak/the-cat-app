@@ -3,6 +3,10 @@ import { CatsSearchService } from '../shared/services/cats-search.service';
 import { Breeds, CatObj } from '../shared/interface';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { map, Observable } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { AppStateInterface } from '../shared/appState.interface';
+import * as ImagesActions from '../cats-search/store/actions';
+import { allBreedsSelector, breedsIdSelector, imagesSelector } from './store/selectors';
 
 
 @Component({
@@ -25,48 +29,31 @@ export class CatsSearchComponent implements OnInit {
 	]
 
 	constructor(
-		private _catsService: CatsSearchService,
+		private _store: Store<AppStateInterface>
 	) {
 
 	}
 
 	ngOnInit(): void {
+		
 		this.form = new FormGroup({
 			limit: new FormControl(10, Validators.required),
 			breedsControl: new FormControl(['abys'], Validators.required)
 		})
-		this.breedsIds$ = this._catsService.getBreeds()
-			.pipe(
-				map((data) =>
-					data.map((res) => {
-						return {
-							id: res.id,
-							name: res.name
-						}
-					})
-				)
-			)
 
+		this._store.dispatch(ImagesActions.getBreedsId())
+		this.breedsIds$ = this._store.pipe(select(breedsIdSelector))
 
-			this.allBreeds$ = this._catsService.getBreeds()
-			.pipe(
-				map((data) =>
-					data.map((res) => {
-						return {
-							id: res.id,
-							name: res.name
-						}
-					}).map((dataId) => {
-					return dataId.id
-				})
-				)
-			)
+		this._store.dispatch(ImagesActions.getAllBreeds())
+
+			this.allBreeds$ = this._store.pipe(select(allBreedsSelector))
 
 	}
 
 
 	searchCats() {
-		this.images$ = this._catsService.getImages(this.form.value.limit, this.form.value.breedsControl)
+		this._store.dispatch(ImagesActions.getImages({limit: this.form.value.limit, breed: this.form.value.breedsControl}))
+		this.images$ = this._store.pipe(select(imagesSelector))
 		
 	}
 
